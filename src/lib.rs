@@ -303,6 +303,7 @@ impl Build {
             "aarch64-apple-ios" => "ios64-cross",
             "x86_64-apple-ios" => "iossimulator-xcrun",
             "aarch64-apple-ios-sim" => "iossimulator-xcrun",
+            _ if target.starts_with("e2k") => "linux-e2k",
             _ => panic!("don't know how to configure OpenSSL for {}", target),
         };
 
