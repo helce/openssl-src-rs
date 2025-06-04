@@ -409,6 +409,7 @@ impl Build {
             "aarch64-unknown-linux-ohos" => "linux-aarch64",
             "armv7-unknown-linux-ohos" => "linux-generic32",
             "x86_64-unknown-linux-ohos" => "linux-x86_64",
+            _ if target.starts_with("e2k") => "linux-e2k",
             _ => {
                 return Err(format!(
                     "don't know how to configure OpenSSL for {}",
