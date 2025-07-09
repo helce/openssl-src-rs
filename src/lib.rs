@@ -198,8 +198,6 @@ impl Build {
             // No shared objects, we just want static libraries
             .arg("no-shared")
             .arg("no-module")
-            // Should be off by default on OpenSSL 1.1.0, but let's be extra sure
-            .arg("no-ssl3")
             // No need to build tests, we won't run them anyway
             .arg("no-tests")
             // Nothing related to zlib please
@@ -220,6 +218,13 @@ impl Build {
 
         if cfg!(not(feature = "legacy")) {
             configure.arg("no-legacy");
+        }
+
+        if cfg!(feature = "ssl3") {
+            configure.arg("enable-ssl3").arg("enable-ssl3-method");
+        } else {
+            // Should be off by default on OpenSSL 1.1.0, but let's be extra sure
+            configure.arg("no-ssl3");
         }
 
         if cfg!(feature = "weak-crypto") {
@@ -769,6 +774,7 @@ impl Artifacts {
         if self.target.contains("windows") {
             println!("cargo:rustc-link-lib=user32");
             println!("cargo:rustc-link-lib=crypt32");
+            println!("cargo:rustc-link-lib=advapi32");
         } else if self.target == "wasm32-wasi" {
             println!("cargo:rustc-link-lib=wasi-emulated-signal");
             println!("cargo:rustc-link-lib=wasi-emulated-process-clocks");

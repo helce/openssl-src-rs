@@ -1,6 +1,6 @@
 [package]
 name = "openssl-src"
-version = "300.4.2+3.4.1"
+version = "300.5.1+3.5.1"
 authors = ["Alex Crichton <alex@alexcrichton.com>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
@@ -23,7 +23,7 @@ exclude = [
   'openssl/python-ecdsa/*',
   'openssl/oqs-provider/*',
   'openssl/cloudflare-quiche/*',
-  'openssl/tlslite-ng/*',
+  'openssl/pkcs11-provider/*',
 # The current upload size limit for *.crate files is 10MB. Therefore, exclude
 # some unused documentation to meet this constraint.
   'openssl/doc/man{3,5,7}',
@@ -37,6 +37,8 @@ legacy = []
 # Enables compilation of some older algorithms: md2 (hash), rc5 (block cypher) and enabled use of
 # some weaker algorithms in SSL connections. These are generally not recommended for use.
 weak-crypto = []
+# Enables compilation of SSLv3, which is disabled by default.
+ssl3 = []
 # Enables compilation of the Camellia symmetric key block cypher. Since hardware acceleration for
 # it is not available on most systems, this is not as used as AES.
 camellia = []
